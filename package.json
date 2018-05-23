@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/zhangkaiyulw/nonula#readme",
   "dependencies": {
+    "glob": "^7.1.2",
     "lodash": "^4.17.10",
     "mongoose": "^5.1.2"
   }
