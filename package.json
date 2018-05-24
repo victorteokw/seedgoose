@@ -2,6 +2,9 @@
   "name": "nonula",
   "version": "0.1.0",
   "description": "Mongoose data seeding with references.",
+  "bin": {
+    "nonula": "bin/nonula.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +29,10 @@
   "dependencies": {
     "glob": "^7.1.2",
     "lodash": "^4.17.10",
-    "mongoose": "^5.1.2"
+    "mongoose": "^5.1.2",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
   }
 }
