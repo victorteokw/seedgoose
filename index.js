@@ -1,7 +1,7 @@
 const seeding = require('./lib/seeding.js');
 const dropping = require('./lib/dropping.js');
 
-const overallArgv = require('yargs')
+const argv = require('yargs')
   .command('seed', 'Seed mongoDB with mongoose schema and seed data.',
     (yargs) => {
       yargs
@@ -26,4 +26,4 @@ const overallArgv = require('yargs')
   }, dropping)
   .argv;
 
-module.exports = () => overallArgv;
+module.exports = () => argv;

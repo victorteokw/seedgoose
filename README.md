@@ -1,6 +1,6 @@
 # Nonula
 
-Mongoose data seeding with references.
+Mongoose data seeding with named \_id.
 
 ## Design Concept
 
@@ -8,7 +8,7 @@ The mongoDB and mongoose ecosystem, and node.js development, lacks high quality 
 
 Without nonula, say you have following data
 
-```
+``` json
 // authors.json
 {
   "name": "Chris Berg",
@@ -19,22 +19,22 @@ Without nonula, say you have following data
   {
     "_id": "84bd43d8a0ffcde34567abce",
     "title": "Heal the world",
-    content: "Heal the world, make it a better place."
+    "content": "Heal the world, make it a better place."
   },
   {
     "_id": "84bd43d8a0ffcde34567abcd",
     "title": "I have a dream",
-    content: "I still have a dream, a dream deeply rooted in the American dream."
+    "content": "I still have a dream, a dream deeply rooted in the American dream."
   },  
 ]
 
 ```
 
-It's obsure and not descriptive. A lot of patient and time are consumed just to make sure data hooks. Things get even worse when project goes larger and larger and the obscure seed data become larger and larger, hard to read, hard to modify.
+It's obscure and not descriptive. A lot of patient and time are consumed just to make sure data hooks. Things get even worse when project goes larger and larger and the obscure seed data become larger and larger, hard to read, hard to modify.
 
 This is where nonula comes in, with nonula, we can rewrite these data like this
 
-```
+``` json
 // authors.json
 {
   "name": "Chris Berg",
@@ -45,18 +45,18 @@ This is where nonula comes in, with nonula, we can rewrite these data like this
   {
     "_id": "heal the world",
     "title": "Heal the world",
-    content: "Heal the world, make it a better place."
+    "content": "Heal the world, make it a better place."
   },
   {
     "_id": "i have a dream",
     "title": "I have a dream",
-    content: "I still have a dream, a dream deeply rooted in the American dream."
+    "content": "I still have a dream, a dream deeply rooted in the American dream."
   },  
 ]
 
 ```
 
-Nonula recursively goes through the model schema, and trying to find out what you are referencing and set the relationships for you. In this way, you can define the identity of a model in any way you like. 
+Nonula recursively goes through the model schema, and trying to find out what you are referencing and set the relationships for you. In this way, you can define the identity of a model in any way you like.
 
 ## Usage
 
@@ -64,7 +64,7 @@ Name your seed data files by database collection names and separate them into tw
 
 Add these to your package.json
 
-```
+``` js
 "scripts": {
   "seed": "nonula seed --models=./your-model-dir --data=./your-data-dir --mongourl=mongodb://localhost:27017/your-database"
   "drop": "nonula drop --mongourl=mongodb://localhost:27017/your-database"

@@ -1,7 +1,7 @@
 {
   "name": "nonula",
   "version": "0.1.0",
-  "description": "Mongoose data seeding with references.",
+  "description": "Mongoose data seeding with named _id.",
   "bin": {
     "nonula": "bin/nonula.js"
   },
@@ -20,8 +20,8 @@
     "data",
     "seeding"
   ],
-  "author": "Zhang Kai Yu <yeannylam@gmail.com> (http://www.cheunghoiyu.com/)",
-  "license": "ISC",
+  "author": "Zhang Kai Yu <yeannylam@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zhangkaiyulw/nonula/issues"
   },
