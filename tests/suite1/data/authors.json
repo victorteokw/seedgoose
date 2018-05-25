@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "jack",
+    "name": "Jack Peterson",
+    "posts": ["jack post 1", "jack post 2", "jack post 3"]
+  },
+  {
+    "_id": "queen",
+    "name": "Queen Ace",
+    "posts": ["queen post 1", "queen post 2", "queen post 3"]
+  },
+  {
+    "_id": "kay",
+    "name": "Kay Jack",
+    "posts": ["kay post 1", "kay post 2", "kay post 3"]
+  }
+]
