@@ -1,7 +1,10 @@
 const seed = require('./lib/seed');
 const drop = require('./lib/drop');
+const withProjectOptions = require('./lib/withProjectOptions');
 
 const argv = require('yargs')
+  .pkgConf('nonula')
+  .config(withProjectOptions({}))
   .command('seed', 'Seed mongoDB with mongoose schema and seed data.',
     (yargs) => {
       yargs
@@ -24,6 +27,7 @@ const argv = require('yargs')
         describe: 'URL of mongoDB instance'
       });
   }, drop)
+  .help('help')
   .alias('s', 'seed')
   .alias('d', 'drop')
   .argv;
