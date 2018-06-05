@@ -24,6 +24,8 @@ const argv = require('yargs')
         describe: 'URL of mongoDB instance'
       });
   }, drop)
+  .alias('s', 'seed')
+  .alias('d', 'drop')
   .argv;
 
 module.exports = () => argv;

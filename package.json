@@ -1,9 +1,12 @@
 {
   "name": "nonula",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Mongoose data seeding with named _id.",
   "bin": {
     "nonula": "bin/nonula.js"
+  },
+  "directories": {
+    "lib": "lib"
   },
   "main": "index.js",
   "scripts": {
