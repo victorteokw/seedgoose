@@ -62,25 +62,40 @@ Nonula recursively goes through the model schema, and trying to find out what yo
 
 Name your seed data files by database collection names and separate them into two different directories. For example, if you have a model file named `User`, then you should name data file `users.json` or `users.js`. We follow the convensions over configuration best practice, save configuration time and automatically get the mapping.
 
-Add these to your package.json
+Create a nonula configuration file
 
-``` js
-"scripts": {
-  "seed": "nonula seed --models=./your-model-dir --data=./your-data-dir --mongourl=mongodb://localhost:27017/your-database"
-  "drop": "nonula drop --mongourl=mongodb://localhost:27017/your-database"
+``` javascript
+// .nonularc
+// nonula.config.js
+module.exports = {
+  models: 'your-models-dir',
+  data: 'your-seeding-data-dir',
+  mongourl: 'mongodb://localhost:27017/your-database'
+};
+```
+
+Or add these to your package.json
+
+``` json
+{
+  "nonula": {
+    "models": "your-models-dir",
+    "data": "your-seeding-data-dir",
+    "mongourl": "mongodb://localhost:27017/your-database"
+  }
 }
 ```
 
 To seed data into database, run this:
 
 ```
-npm run seed
+nonula seed
 ```
 
 To drop database, run this:
 
 ```
-npm run drop
+nonula drop
 ```
 
 ## Installation
