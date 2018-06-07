@@ -14,7 +14,7 @@ Mongoose data seeding with following feature supported.
 
 ## Design Concept
 
-The mongoDB and mongoose ecosystem, and node.js development, lacks high quality data seeding tools and fixture loading tools with id references support. Every team and developer has their own time consuming and low quality solutions to seed data. A tool is urgently needed to save our precious time and improve data seeding experience.
+The mongoDB and mongoose ecosystem, and node.js development, lacks high quality data seeding tools and fixture loading tools with id references support. Even myself is shocked by this. This kind of tools exist for years in Ruby on Rails community. It's the base fundation feature for data seeding and unit test fixturing. On our node.js community, every team and developer has their own time consuming and low quality solutions to seed data. A tool is urgently needed to save our precious time and improve data seeding experience.
 
 Without nonula, say you have following data
 
