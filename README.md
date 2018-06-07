@@ -1,6 +1,16 @@
 # Nonula
 
-Mongoose data seeding with named \_id.
+Mongoose data seeding with following feature supported.
+1. named \_id.
+2. dynamic generated data.
+3. json static data.
+4. easy to use with just one command line command.
+5. programmable and hookable into unit tests.
+6. born for agile development.
+7. easy to sync data between developers.
+8. play nicely with data faking tools like faker.
+9. supports in package.json config
+10. supports both configuration file and command line arguments
 
 ## Design Concept
 
@@ -56,7 +66,23 @@ This is where nonula comes in, with nonula, we can rewrite these data like this
 
 ```
 
-Nonula recursively goes through the model schema, and trying to find out what you are referencing and set the relationships for you. In this way, you can define the identity of a model in any way you like.
+Nonula recursively goes through the model schema, and trying to find out what you are referencing and set the relationships for you. In this way, you can define the identity of a model in any way you like. It's not restricted to strings, actually number or even boolean value is also fine if it make sense.
+
+You can also write dynamics data, nonula recognizes it and handle it correctly for you.
+
+``` javascript
+const map = require('lodash/map');
+const times = require('lodash/times');
+const flatten = require('lodash/flatten');
+const faker = require('faker');
+
+module.exports = flatten(map(["jack", "queen", "king"], (a) => times(3, (i) => ({
+  "_id": `${a} post ${i + 1}`,
+  "author": a,
+  "title": faker.random.word(),
+  "content": faker.lorem.paragraphs()
+}))));
+```
 
 ## Usage
 
