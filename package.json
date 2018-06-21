@@ -1,6 +1,6 @@
 {
   "name": "nonula",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Mongoose data seeding with named _id.",
   "bin": {
     "nonula": "bin/nonula.js"
@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/zhangkaiyulw/nonula#readme",
   "dependencies": {
+    "find-dominant-file": "^1.0.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.10",
     "yargs": "^11.0.0"
