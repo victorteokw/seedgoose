@@ -1,6 +1,6 @@
 {
   "name": "nonula",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Mongoose data seeding with named _id.",
   "bin": {
     "nonula": "bin/nonula.js"
