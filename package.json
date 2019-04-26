@@ -1,9 +1,9 @@
 {
-  "name": "nonula",
-  "version": "0.2.2",
+  "name": "seedgoose",
+  "version": "0.3.0",
   "description": "Mongoose data seeding with named _id.",
   "bin": {
-    "nonula": "bin/nonula.js"
+    "seedgoose": "bin/seedgoose.js"
   },
   "directories": {
     "lib": "lib"
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhangkaiyulw/nonula.git"
+    "url": "git+https://github.com/zhangkaiyulw/seedgoose.git"
   },
   "keywords": [
     "mongoose",
@@ -26,9 +26,9 @@
   "author": "Zhang Kai Yu <yeannylam@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zhangkaiyulw/nonula/issues"
+    "url": "https://github.com/zhangkaiyulw/seedgoose/issues"
   },
-  "homepage": "https://github.com/zhangkaiyulw/nonula#readme",
+  "homepage": "https://github.com/zhangkaiyulw/seedgoose#readme",
   "dependencies": {
     "find-dominant-file": "^1.0.0",
     "glob": "^7.1.2",
