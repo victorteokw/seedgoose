@@ -30,4 +30,4 @@ if (require.main === module) {
   startup();
 }
 
-module.exports = startup();
+module.exports = startup;
