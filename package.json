@@ -35,6 +35,7 @@
     "find-dominant-file": "^2.1.0",
     "load-any-file": "^1.0.1",
     "lodash": "^4.17.11",
+    "mongoose": "^5.5.4",
     "series-async-each": "^1.0.0",
     "walk-sync": "^1.1.3"
   },

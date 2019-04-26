@@ -58,19 +58,19 @@ const startup = async function() {
     if (command === 'seed') await seed({
       mongoose,
       report: reporter,
-      args,
+      args: args || [],
       options
     });
     if (command === 'unseed') await unseed({
       mongoose,
       report: reporter,
-      args,
+      args: args || [],
       options
     });
   } catch(e) {
     console.log(e);
   } finally { // Close connection and exit
-    await connection.close();
+    await connection.disconnect();
   }
 };
 
