@@ -1,4 +1,4 @@
-# Nonula
+# Seedgoose
 
 Mongoose data seeding with following feature supported.
 1. named \_id.
