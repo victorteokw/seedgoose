@@ -6,7 +6,6 @@ const showHelp = require('./lib/showHelp');
 const showVersion = require('./lib/showVersion');
 const getModelFileList = require('./lib/getModelFileList');
 const seed = require('./lib/seed');
-const unseed = require('./lib/unseed');
 const reporter = require('./lib/report');
 
 const startup = async function() {
@@ -30,7 +29,7 @@ const startup = async function() {
   }
 
   // Check command availability
-  if (!['seed', 'unseed'].includes(command)) {
+  if (!['seed', 'reseed', 'unseed'].includes(command)) {
     throw new Error(`Unknown command '${command}'.`);
   }
 
@@ -55,17 +54,12 @@ const startup = async function() {
     modelFileList.forEach(require);
 
     // Execute command
-    if (command === 'seed') await seed({
+    await seed({
       mongoose,
       report: reporter,
       args: args || [],
-      options
-    });
-    if (command === 'unseed') await unseed({
-      mongoose,
-      report: reporter,
-      args: args || [],
-      options
+      options,
+      command
     });
   } catch(e) {
     console.log(e);

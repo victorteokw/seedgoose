@@ -13,5 +13,10 @@
     "_id": "kay",
     "name": "Kay Jack",
     "posts": ["kay post 1", "kay post 2", "kay post 3"]
+  },
+  {
+    "_id": "ash",
+    "name": "Ash Crimson",
+    "posts": []
   }
 ]
