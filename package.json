@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/zhangkaiyulw/seedgoose#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
     "find-dominant-file": "^2.1.0",
