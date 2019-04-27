@@ -90,11 +90,6 @@ module.exports = flatten(map(["jack", "queen", "king"], (a) => times(3, (i) => (
 
 ## Usage
 
-```bash
-seedgoose [command] [collections...] [options...]
-```
-## Usage
-
 Name your seed data files by database collection names. For example, if you
 have a model file named `User`, then you should name data file `users` dot
 whatever you want. We follow the convention over configuration best practice,
@@ -123,6 +118,12 @@ Or add these to your package.json
     "db": "mongodb://localhost:27017/url-to-db"
   }
 }
+```
+
+The Seedgoose command receives arguments and options in the following style.
+
+```bash
+seedgoose [command] [collections...] [options...]
 ```
 
 To seed data into database, run this:
