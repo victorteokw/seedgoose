@@ -8,6 +8,135 @@
 
 Mongoose data seeding with smart reference.
 
+## Installation
+
+Install Seedgoose with `npm`.
+
+``` bash
+npm install seedgoose
+```
+
+## Usage
+
+### Write your data files
+
+With Seedgoose, you don't need to write your own programs or scripts to seed
+data. Seedgoose handles insertions, updations and deletions for you. You just
+write your data files. While you can write dynamic data files in programming
+language that represent dynamic data.
+
+* Write your data in JSON.
+
+```json
+{
+  "jack": {
+    "name": "Jack Jill",
+    "age": 20
+  },
+  "bill": {
+    "name": "Bill John",
+    "age": 25
+  }
+}
+```
+
+* Write your data in CSON.
+
+```cson
+jack:
+  name: 'Jack Jill'
+  age: 20
+bill:
+  name: 'Bill John'
+  age: 25
+```
+
+* Write your data in YAML.
+
+```yaml
+jack:
+  name: Jack Jill
+  age: 20
+bill:
+  name: Bill John
+  age: 25
+```
+
+You can also write data files in javaScript and TypeScript by exporting a data
+array or object.
+
+### Conventions
+
+Name your data files by database collection names. For example, if you have a
+model file named `User`, then you should name data file `users` dot whatever
+the type is. We follow the convention over configuration best practice to save
+configuration time and suppress arguments.
+
+Create a Seedgoose configuration file like this, you can write the
+configuration file in any type, too.
+
+``` javascript
+// .seedgooserc.js
+module.exports = {
+  modelBaseDirectory: 'models', // model directory name
+  models: '**/*.js', // model matcher
+  data: 'data', // data directory name
+  db: 'mongodb://localhost:27017/url-to-db' // db connection url
+};
+```
+
+If you prefer to include configurations in `package.json`, you can write them
+under the `seedgoose` field.
+
+``` json
+{
+  "seedgoose": {
+    "modelBaseDirectory": "models",
+    "models": "**/*.js",
+    "data": "data",
+    "db": "mongodb://localhost:27017/url-to-db"
+  }
+}
+```
+
+### The command line interface
+
+The Seedgoose command receives arguments and options in the following style.
+
+```bash
+seedgoose [command] [collections...] [options...]
+```
+
+* Seeding data into database
+
+```
+seedgoose seed
+```
+
+* Updating data in the database
+
+```
+seedgoose reseed
+```
+
+* Removing seeded records
+
+```
+seedgoose unseed
+```
+
+* Only run command for several collections
+
+```
+seedgoose seed users posts
+```
+
+* Silent output
+
+```
+seedgoose seed --silent
+```
+
 ## Design Concept
 
 The mongoose ecosystem lacks a high quality data seeding tool and fixture
@@ -92,73 +221,6 @@ module.exports = flatten(map(["jack", "queen", "king"], (a) => times(3, (i) => (
   "title": faker.random.word(),
   "content": faker.lorem.paragraphs()
 }))));
-```
-
-## Usage
-
-Name your seed data files by database collection names. For example, if you
-have a model file named `User`, then you should name data file `users` dot
-whatever you want. We follow the convention over configuration best practice,
-save configuration time and automatically get the mapping.
-
-Create a Seedgoose configuration file like this:
-
-``` javascript
-// .seedgooserc.js
-module.exports = {
-  modelBaseDirectory: 'models', // model directory name
-  models: '**/*.js', // model matcher
-  data: 'data', // data directory name
-  db: 'mongodb://localhost:27017/url-to-db' // db connection url
-};
-```
-
-Or add these to your package.json
-
-``` json
-{
-  "seedgoose": {
-    "modelBaseDirectory": "models",
-    "models": "**/*.js",
-    "data": "data",
-    "db": "mongodb://localhost:27017/url-to-db"
-  }
-}
-```
-
-The Seedgoose command receives arguments and options in the following style.
-
-```bash
-seedgoose [command] [collections...] [options...]
-```
-
-To seed data into database, run this:
-
-```
-seedgoose seed
-```
-
-To update data in the database, run this:
-
-```
-seedgoose reseed
-```
-
-To remove seeded records, run this:
-
-```
-seedgoose unseed
-```
-
-## Installation
-
-Install Seedgoose in your project.
-``` bash
-npm install seedgoose --save-dev
-```
-Install Seedgoose globally.
-``` bash
-npm install seedgoose --global
 ```
 
 ## License
