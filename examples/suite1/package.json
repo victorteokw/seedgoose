@@ -1,1 +1,5 @@
-{}
+{
+  "scripts": {
+    "seedgoose": "seedgoose"
+  }
+}

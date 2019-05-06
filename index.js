@@ -13,6 +13,11 @@ const startup = async function(cwd = process.cwd(), argv = process.argv) {
   // Locate project root directory
   const projRoot = findDominantFile(cwd, 'package.json', true);
 
+  const nodeModules = findDominantFile(cwd, 'node_modules', false);
+  if (nodeModules) {
+    module.paths.push(nodeModules);
+  }
+
   // Parsing and getting settings
   const [command, args, options] = loadConfig(projRoot, argv);
 
@@ -55,6 +60,7 @@ const startup = async function(cwd = process.cwd(), argv = process.argv) {
 
     // Execute command
     await seed({
+      mongoose,
       report: reporter,
       args: args || [],
       options,
