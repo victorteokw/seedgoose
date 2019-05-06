@@ -72,7 +72,7 @@ model file named `User`, then you should name data file `users` dot whatever
 the type is. We follow the convention over configuration best practice to save
 configuration time and suppress arguments.
 
-Create a Seedgoose configuration file like this, you can write the
+Create a Seedgoose configuration file like this. You can write the
 configuration file in any type, too.
 
 ``` javascript
@@ -206,8 +206,8 @@ what you are referencing and set the relationships up for you. In this way, you
 can define the identity of a model in any way you like. It's not restricted to
 strings, actually number or even boolean value is also fine if it make sense.
 
-You can also write dynamics data, Seedgoose recognizes it and handle it
-correctly for you.
+According to this data loading nature, seedgoose can load program files as long
+as it returns a object or array.
 
 ``` javascript
 const map = require('lodash/map');
