@@ -1,7 +1,6 @@
 # Seedgoose
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Test Coverage][cov-image]][cov-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![DevDependency Status][daviddm-image-dev]][daviddm-url-dev]
 [![License][license-image]][license-url]
@@ -170,8 +169,6 @@ MIT © [Zhang Kai Yu][license-url]
 [npm-url]: https://npmjs.org/package/seedgoose
 [travis-image]: https://travis-ci.org/zhangkaiyulw/seedgoose.svg?branch=master
 [travis-url]: https://travis-ci.org/zhangkaiyulw/seedgoose
-[cov-image]: https://codecov.io/gh/zhangkaiyulw/seedgoose/branch/master/graph/badge.svg
-[cov-url]: https://codecov.io/gh/zhangkaiyulw/seedgoose
 [daviddm-image]: https://david-dm.org/zhangkaiyulw/seedgoose.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/zhangkaiyulw/seedgoose
 [daviddm-image-dev]: https://david-dm.org/zhangkaiyulw/seedgoose/dev-status.svg
