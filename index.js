@@ -8,13 +8,13 @@ const getModelFileList = require('./lib/getModelFileList');
 const seed = require('./lib/seed');
 const reporter = require('./lib/report');
 
-const startup = async function() {
+const startup = async function(cwd = process.cwd(), argv = process.argv) {
 
   // Locate project root directory
-  const projRoot = findDominantFile(process.cwd(), 'package.json', true);
+  const projRoot = findDominantFile(cwd, 'package.json', true);
 
   // Parsing and getting settings
-  const [command, args, options] = loadConfig(projRoot);
+  const [command, args, options] = loadConfig(projRoot, argv);
 
   // Show help and exit
   if (options.help) {
@@ -55,7 +55,6 @@ const startup = async function() {
 
     // Execute command
     await seed({
-      mongoose,
       report: reporter,
       args: args || [],
       options,
@@ -69,7 +68,7 @@ const startup = async function() {
 };
 
 if (require.main === module) {
-  startup();
+  startup(process.cwd(), process.argv);
 }
 
 module.exports = startup;
