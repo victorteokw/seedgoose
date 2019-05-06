@@ -1,0 +1,7 @@
+{
+  "extends": "man",
+  "plugins": ["mocha"],
+  "env": {
+    "mocha": true
+  }
+}
