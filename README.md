@@ -1,4 +1,11 @@
 # Seedgoose
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][cov-image]][cov-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![DevDependency Status][daviddm-image-dev]][daviddm-url-dev]
+[![License][license-image]][license-url]
+[![PR Welcome][pr-image]][pr-url]
 
 Mongoose data seeding with smart reference.
 
@@ -154,3 +161,22 @@ Install Seedgoose globally.
 ``` bash
 npm install seedgoose --global
 ```
+
+## License
+
+MIT © [Zhang Kai Yu][license-url]
+
+[npm-image]: https://badge.fury.io/js/seedgoose.svg
+[npm-url]: https://npmjs.org/package/seedgoose
+[travis-image]: https://travis-ci.org/zhangkaiyulw/seedgoose.svg?branch=master
+[travis-url]: https://travis-ci.org/zhangkaiyulw/seedgoose
+[cov-image]: https://codecov.io/gh/zhangkaiyulw/seedgoose/branch/master/graph/badge.svg
+[cov-url]: https://codecov.io/gh/zhangkaiyulw/seedgoose
+[daviddm-image]: https://david-dm.org/zhangkaiyulw/seedgoose.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/zhangkaiyulw/seedgoose
+[daviddm-image-dev]: https://david-dm.org/zhangkaiyulw/seedgoose/dev-status.svg
+[daviddm-url-dev]: https://david-dm.org/zhangkaiyulw/seedgoose?type=dev
+[license-image]: https://img.shields.io/github/license/zhangkaiyulw/seedgoose.svg
+[license-url]: https://github.com/zhangkaiyulw/seedgoose/blob/master/LICENSE
+[pr-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
+[pr-url]: https://github.com/zhangkaiyulw/seedgoose/blob/master/CONTRIBUTING.md
