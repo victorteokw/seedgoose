@@ -1,6 +1,6 @@
 {
   "name": "seedgoose",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Mongoose data seeding with smart reference.",
   "bin": {
     "seedgoose": "index.js"
