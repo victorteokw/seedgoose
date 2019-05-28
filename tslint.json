@@ -3,6 +3,7 @@
   "rules": {
     "curly": [true, "ignore-same-line"],
     "interface-name": [true, "never-prefix"],
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "only-arrow-functions": false
   }
 }

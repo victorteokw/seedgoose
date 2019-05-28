@@ -6,6 +6,9 @@ import displayVersion from './displayVersion';
 import getModelFiles from './getModelFiles';
 import loadConfig from './loadConfig';
 import * as reporters from './reporters';
+import seed from './seed';
+import reseed from './reseed';
+import unseed from './unseed';
 
 async function startup(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
 
