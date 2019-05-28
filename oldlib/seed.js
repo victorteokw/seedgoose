@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-const loadFile = require('load-any-file');
 const eachAsync = require('series-async-each');
 const set = require('lodash/set');
 const get = require('lodash/get');
@@ -10,29 +7,6 @@ const fill = require('lodash/fill');
 const cloneDeep = require('lodash/cloneDeep');
 const getUniqId = require('./getUniqId');
 const stringIsObjectId = require('./stringIsObjectId');
-
-const getCollections = (mongoose) => {
-  return Object.values(mongoose.models).map((model) => model.collection.name);
-};
-
-const availableCollections = (allCollections, dataDir) => {
-  const files = fs.readdirSync(dataDir);
-  const available = files.map((f) => path.parse(f).name);
-  return Object.values(allCollections).filter((c) => available.includes(c));
-};
-
-const seed = async ({ mongoose, report, args, options, command }) => {
-  const allCollections = args.length ? args : getCollections(mongoose);
-  const collections = availableCollections(allCollections, options.data);
-  for (const collection of collections) {
-    const data = loadFile(path.join(options.data, collection));
-    const model = Object.values(mongoose.models)
-      .find((m) => m.collection.name === collection);
-    await seedCollection({
-      mongoose, model, collection, data, report, options, command
-    });
-  }
-};
 
 const replaceRefsOnRecord = async (
   record, treeSchema, collectionName, models, savedPath, mappingTable, mongoose
@@ -116,37 +90,13 @@ const replaceRefsOnRecord = async (
 const seedCollection = async ({
   mongoose, model, collection, data, report, options, command
 }) => {
-  if (!Array.isArray(data)) {
-    data = Object.keys(data).map((key) => {
-      return {
-        _id: key,
-        ...data[key]
-      };
-    });
-  }
   for (const record of data) {
-    const smartId = record._id || record.id;
-    if (!smartId) {
-      throw new Error(`Invalid record without id '${JSON.stringify(record)}'.`);
-    }
     const nativeId = mongoose.Types.ObjectId(stringIsObjectId(smartId) ?
       smartId :
       await getUniqId(collection, smartId, options.mappingTable, mongoose));
     const db = mongoose.connection.db;
     const dbCollection = db.collection(collection);
-    if (command === 'unseed') {
-      const result = await dbCollection.deleteOne({ _id: nativeId });
-      report({
-        action: result.result.n === 0 ? 'unexist' : 'delete',
-        collection,
-        id: smartId,
-        color: !options.noColorOutput,
-        record: {},
-        verbose: options.verbose,
-        silent: options.silent
-      });
-      continue;
-    }
+
     // Looping schema to find references to other tables
     // We should handle simple ref, array ref, nested object ref and dynamic
     // refs(refPath).

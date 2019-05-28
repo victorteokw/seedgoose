@@ -6,6 +6,7 @@ import collectionsFromArgs from './collectionsFromArgs';
 import displayHelp from './displayHelp';
 import displayVersion from './displayVersion';
 import getModelFiles from './getModelFiles';
+import { idMapSetMappingTable, idMapSetMongoose } from './idMap';
 import loadConfig from './loadConfig';
 import * as reporters from './reporters';
 import reseed from './reseed';
@@ -59,6 +60,8 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
     useNewUrlParser: true
   });
 
+  idMapSetMongoose(mongoose);
+  idMapSetMappingTable(options.mappingTable);
   const dataDir = path.join(projRoot, options.data);
   const reporter = reporters.default;
   const collections = collectionsFromArgs(dataDir, args, mongoose);
@@ -68,13 +71,13 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
       const records = loadFile(path.join(dataDir, collection));
       switch (command) {
         case 'seed':
-        await seed(collection, records, options, mongoose, reporter);
+        await seed(collection, records, mongoose, reporter);
         break;
         case 'reseed':
-        await reseed(collection, records, options, mongoose, reporter);
+        await reseed(collection, records, mongoose, reporter);
         break;
         case 'unseed':
-        await unseed(collection, records, options, mongoose, reporter);
+        await unseed(collection, records, mongoose, reporter);
         break;
       }
     }
