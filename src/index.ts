@@ -1,37 +1,25 @@
 #!/usr/bin/env node
-import * as path from 'path';
 import findDominantFile from 'find-dominant-file';
-import loadConfig from './loadConfig';
-import displayVersion from './displayVersion';
+import * as path from 'path';
 import displayHelp from './displayHelp';
+import displayVersion from './displayVersion';
+import getModelFiles from './getModelFiles';
+import loadConfig from './loadConfig';
+import * as reporters from './reporters';
 
-// const loadConfig = require('./lib/loadConfig');
-// const showHelp = require('./lib/showHelp');
-// const showVersion = require('./lib/showVersion');
-// const getModelFileList = require('./lib/getModelFileList');
-// const seed = require('./lib/seed');
-// const reporter = require('./lib/report');
+async function startup(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
 
-async function startup(cwd = process.cwd(), argv = process.argv) {
-
-  // Locate project root directory
+  // Find project root directory
   const projRoot = findDominantFile(cwd, 'package.json', true);
-
   if (!projRoot) {
     throw new Error("Please run `seedgoose' inside your project directory.");
   }
 
-  const nodeModules = findDominantFile(cwd, 'node_modules', false);
-  if (nodeModules) {
-    module.paths.push(nodeModules);
-  }
-
-  // Parsing and getting settings
   const [command, args, options] = loadConfig(projRoot, argv);
 
   // Show help and exit
   if (options.help) {
-    dislayHelp(process.stdout);
+    displayHelp(process.stdout);
     return;
   }
 
@@ -43,40 +31,50 @@ async function startup(cwd = process.cwd(), argv = process.argv) {
 
   // Check command availability
   if (!['seed', 'reseed', 'unseed'].includes(command)) {
-    throw new Error(`Unknown command '${command}'.`);
+    throw new Error(`Unknown seedgoose command \`${command}'.`);
   }
 
   // Requires data directory
   if (!options.data) {
-    throw new Error('Data directory is required.');
+    throw new Error('Please provide data directory.');
   }
   options.data = path.resolve(projRoot, options.data);
 
-  // Get model file list
-  const modelFileList =
-    getModelFileList(projRoot, options.models, options.modelBaseDirectory);
+  // Load model files
+  const modelFileList = getModelFiles(projRoot, options.models, options.modelBaseDirectory);
+  modelFileList.forEach(require);
 
   // Connect mongoose
+  const nodeModules = findDominantFile(cwd, 'node_modules', false);
+  if (nodeModules) {
+    module.paths.push(nodeModules);
+  }
   const mongoose = require('mongoose');
   const connection = await mongoose.connect(options.db, {
     useNewUrlParser: true
   });
 
-  try {
-    // Load model files
-    modelFileList.forEach(require);
+  const reporter = reporters.default;
+  const collections = args;
 
+  try {
     // Execute command
-    await seed({
-      mongoose,
-      report: reporter,
-      args: args || [],
-      options,
-      command
-    });
+    switch (command) {
+      case 'seed':
+      await seed(collections, options, mongoose, reporter);
+      break;
+      case 'reseed':
+      await reseed(collections, options, mongoose, reporter);
+      break;
+      case 'unseed':
+      await unseed(collections, options, mongoose, reporter);
+      break;
+    }
+
   } catch(e) {
-    console.log(e);
-  } finally { // Close connection and exit
+    throw e;
+  } finally {
+    // Close connection and exit
     await connection.disconnect();
   }
 };
