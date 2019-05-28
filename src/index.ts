@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import findDominantFile from 'find-dominant-file';
+import loadFile from 'load-any-file';
 import * as path from 'path';
+import collectionsFromArgs from './collectionsFromArgs';
 import displayHelp from './displayHelp';
 import displayVersion from './displayVersion';
 import getModelFiles from './getModelFiles';
 import loadConfig from './loadConfig';
 import * as reporters from './reporters';
-import seed from './seed';
 import reseed from './reseed';
+import seed from './seed';
 import unseed from './unseed';
 
 async function startup(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
@@ -57,23 +59,25 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
     useNewUrlParser: true
   });
 
+  const dataDir = path.join(projRoot, options.data);
   const reporter = reporters.default;
-  const collections = args;
-
+  const collections = collectionsFromArgs(dataDir, args, mongoose);
   try {
     // Execute command
-    switch (command) {
-      case 'seed':
-      await seed(collections, options, mongoose, reporter);
-      break;
-      case 'reseed':
-      await reseed(collections, options, mongoose, reporter);
-      break;
-      case 'unseed':
-      await unseed(collections, options, mongoose, reporter);
-      break;
+    for (const collection of collections) {
+      const records = loadFile(path.join(dataDir, collection));
+      switch (command) {
+        case 'seed':
+        await seed(collection, records, options, mongoose, reporter);
+        break;
+        case 'reseed':
+        await reseed(collection, records, options, mongoose, reporter);
+        break;
+        case 'unseed':
+        await unseed(collection, records, options, mongoose, reporter);
+        break;
+      }
     }
-
   } catch(e) {
     throw e;
   } finally {
