@@ -27,7 +27,32 @@ const genericSeed: GeneralSeedCommand = async function (
       reporter.didHandleRecord(result.result.n === 0 ? 'unexist' : 'delete', collectionName, record._id);
       return;
     }
-
+    const transformedRecord = transformRecord(record, model);
+    if (command === SeedingCommandType.RESEED) {
+      const result = await dbCollection.findOneAndUpdate(
+        { _id: nativeId },
+        { $set: transformedRecord },
+        { upsert: true, returnOriginal: false }
+      );
+      const update = result.lastErrorObject.updatedExisting;
+      reporter.didHandleRecord(update ? 'update' : 'create', collectionName, record._id);
+      return;
+    }
+    if (command === SeedingCommandType.SEED) {
+      const exist = await dbCollection.findOne({ _id: nativeId });
+      if (exist) {
+        reporter.didHandleRecord('untouch', collectionName, record._id);
+      } else {
+        const insertResult = (await dbCollection.insertOne(
+          Object.assign(
+            { _id: nativeId },
+            transformedRecord
+          )
+        )).ops[0];
+        reporter.didHandleRecord('create', collectionName, record._id);
+        return;
+      }
+    }
   });
   reporter.endSeedCollection(collectionName);
 }
