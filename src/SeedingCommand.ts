@@ -1,11 +1,11 @@
 import { Mongoose } from 'mongoose';
 import Reporter from './Reporter';
 
-interface Record {
+export interface Record {
   [key: string]: any
 }
 
-type Records = Record[] | { [key: string]: Record };
+export type Records = Record[] | { [key: string]: Record };
 
 export enum SeedingCommandType {
   SEED,
