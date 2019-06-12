@@ -1,9 +1,9 @@
 {
   "name": "seedgoose",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Mongoose data seeding with smart id references tracking.",
   "bin": {
-    "seedgoose": "index.js"
+    "seedgoose": "lib/index.js"
   },
   "directories": {
     "lib": "lib"
