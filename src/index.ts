@@ -5,7 +5,7 @@ import * as path from 'path';
 import collectionsFromArgs from './collectionsFromArgs';
 import displayHelp from './displayHelp';
 import displayVersion from './displayVersion';
-import getModelFiles from './getModelFiles';
+import getModelFiles, { ModelMatcher } from './getModelFiles';
 import { idMapSetMappingTable, idMapSetMongoose } from './idMap';
 import loadConfig from './loadConfig';
 import * as reporters from './reporters';
@@ -44,10 +44,14 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
   if (!options.data) {
     throw new Error('Please provide data directory.');
   }
-  options.data = path.resolve(projRoot, options.data);
+  options.data = path.resolve(projRoot, options.data as string);
 
   // Load model files
-  const modelFileList = getModelFiles(projRoot, options.models, options.modelBaseDirectory);
+  const modelFileList = getModelFiles(
+    projRoot,
+    options.models as ModelMatcher,
+    options.modelBaseDirectory as string
+  );
   modelFileList.forEach(require);
 
   // Connect mongoose
@@ -61,7 +65,7 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
   });
 
   idMapSetMongoose(mongoose);
-  idMapSetMappingTable(options.mappingTable);
+  idMapSetMappingTable(options.mappingTable as string);
   const dataDir = path.join(projRoot, options.data);
   const reporter = reporters.default;
   const collections = collectionsFromArgs(dataDir, args, mongoose);

@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as walkSync from 'walk-sync';
 
-type ModelMatcher = string | RegExp | Array<string | RegExp>;
+export type ModelMatcher = string | RegExp | Array<string | RegExp>;
 
 function resolveModelFiles(modelMatcher: ModelMatcher, modelDir: string): string[] {
   if (Array.isArray(modelMatcher)) {
