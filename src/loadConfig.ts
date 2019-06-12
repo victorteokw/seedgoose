@@ -1,13 +1,19 @@
 import loadFile from 'load-any-file';
 import * as path from 'path';
-import { parse } from 'type-args';
+import { Options, parse } from 'type-args';
 import optionDefs from './optionDefs';
 
-function loadConfig(
-  projRoot: string,
-  argv: string[] = process.argv
-): [string, string[], { [key: string]: any }] {
-  const [options, [command, ...args]] = parse(argv, optionDefs);
+function loadConfig(projRoot: string, argv: string[] = process.argv):
+[string, string[], Options] {
+
+  const confFileName: string = parse(argv, {
+    'configFile': {
+      alias: 'c',
+      desc: 'the config file to load',
+      type: 'string',
+      default: '.seedgooserc'
+    }
+  })[0].configFile as string;
 
   // Load config from package.json
   const pkgJson = path.join(projRoot, 'package.json');
@@ -16,22 +22,16 @@ function loadConfig(
   // Load config from config file
   let configFromConfFile;
   try {
-    configFromConfFile = loadFile(
-      path.join(projRoot, options.configFile as string)
-    );
+    configFromConfFile = loadFile(path.join(projRoot, confFileName));
   } catch (e) {
-    // ignore this
+    configFromConfFile = {};
   }
 
-  return [
-    command,
-    args,
-    {
-      ...configFromPkgJson,
-      ...configFromConfFile,
-      ...options
-    }
-  ];
+  const [options, [command, ...args]] = parse(
+    argv, optionDefs, configFromPkgJson, configFromConfFile
+  );
+
+  return [command, args, options];
 }
 
 export default loadConfig;

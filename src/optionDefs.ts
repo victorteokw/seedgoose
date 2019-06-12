@@ -4,14 +4,12 @@ const optionDefs: OptionRules = {
   'help': {
     alias: 'h',
     desc: "view seedgoose's help",
-    type: 'boolean',
-    default: false
+    type: 'boolean'
   },
   'version': {
     alias: 'v',
     desc: "view seedgoose's version",
-    type: 'boolean',
-    default: false
+    type: 'boolean'
   },
   'configFile': {
     alias: 'c',
@@ -54,14 +52,12 @@ const optionDefs: OptionRules = {
  'verbose': {
     alias: 'V',
     desc: 'whether verbose output',
-    type: 'boolean',
-    default: false
+    type: 'boolean'
   },
   'silent': {
     alias: 'S',
     desc: 'whether suppress output',
-    type: 'boolean',
-    default: false
+    type: 'boolean'
   }
 };
 
