@@ -10,7 +10,7 @@ const defaultReporter: StreamReporter = {
   startSeedCollection(collectionName: string) {
     chalk.enabled = this.colorOutput;
     this.stream.write(
-      '\n' + chalk.bold.underline(collectionName.toUpperCase() + ':') + '\n'
+      '\n' + chalk.bold.underline(collectionName.toUpperCase() + ':') + '\n\n'
     );
     collectionStartTimes[collectionName] = Date.now();
     recordsCount[collectionName] = 0;
@@ -20,12 +20,13 @@ const defaultReporter: StreamReporter = {
     const ms = Date.now() - collectionStartTimes[collectionName];
     const num = recordsCount[collectionName];
     this.stream.write(
-      `\n  done seeding ${num} records \`${collectionName}' in ${ms}ms.\n`
+      `\n  done seeding ${num} records into \`${collectionName}' in ${ms}ms.\n`
     );
   },
   didHandleRecord(action: string, collectionName: string, id: string) {
     chalk.enabled = this.colorOutput;
     this.stream.write(
+      '  ' +
       `${chalk.cyanBright(action)} ` +
       `${chalk.magentaBright.bold(id)} in ` +
       `${chalk.greenBright(collectionName)}` +

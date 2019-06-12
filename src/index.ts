@@ -44,7 +44,6 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
   if (!options.data) {
     throw new Error('Please provide data directory.');
   }
-  options.data = path.resolve(projRoot, options.data as string);
 
   // Load model files
   const modelFileList = getModelFiles(
@@ -66,7 +65,7 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
 
   idMapSetMongoose(mongoose);
   idMapSetMappingTable(options.mappingTable as string);
-  const dataDir = path.join(projRoot, options.data);
+  const dataDir = path.join(projRoot, options.data as string);
   const reporter = reporters.default;
   const collections = collectionsFromArgs(dataDir, args, mongoose);
   try {

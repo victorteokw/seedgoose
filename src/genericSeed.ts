@@ -95,7 +95,7 @@ const genericSeed: GeneralSeedCommand = async function (
       throw new Error(`id not found for a record of \`${collectionName}'.`);
     }
     if (Array.isArray(records)) {
-      record._id = record.id;
+      if (!record._id) record._id = record.id;
     } else {
       record._id = index;
     }
