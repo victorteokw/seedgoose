@@ -66,7 +66,7 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
   idMapSetMongoose(mongoose);
   idMapSetMappingTable(options.mappingTable as string);
   const dataDir = path.join(projRoot, options.data as string);
-  const reporter = reporters.default;
+  const reporter = options.silent ? reporters.silent : reporters.default;
   const collections = collectionsFromArgs(dataDir, args, mongoose);
   try {
     // Execute command
