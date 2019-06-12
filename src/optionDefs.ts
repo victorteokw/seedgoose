@@ -1,15 +1,15 @@
 import { OptionRules } from 'type-args';
 
-const optionDefs:OptionRules = {
+const optionDefs: OptionRules = {
   'help': {
     alias: 'h',
-    desc: 'view seedgoose\'s help',
+    desc: "view seedgoose's help",
     type: 'boolean',
     default: false
   },
   'version': {
     alias: 'v',
-    desc: 'view seedgoose\'s version',
+    desc: "view seedgoose's version",
     type: 'boolean',
     default: false
   },
@@ -36,30 +36,30 @@ const optionDefs:OptionRules = {
   },
   'data': {
     alias: 's',
-    desc: 'data directory',
+    desc: 'the data directory where data files are located',
     type: 'string'
   },
   'mappingTable': {
     alias: 'T',
-    desc: 'where to save readable id and actually id mapping',
+    desc: 'where to save readable id and actual id mapping',
     type: 'string',
     default: 'seedgoosemap'
   },
-  'noColorOutput': {
+  'color': {
     alias: 'C',
-    desc: 'whether output with color',
+    desc: 'whether use color output',
     type: 'boolean',
-    default: false
+    default: true
   },
  'verbose': {
     alias: 'V',
-    desc: 'verbose output',
+    desc: 'whether verbose output',
     type: 'boolean',
     default: false
   },
   'silent': {
     alias: 'S',
-    desc: 'suppress output',
+    desc: 'whether suppress output',
     type: 'boolean',
     default: false
   }
