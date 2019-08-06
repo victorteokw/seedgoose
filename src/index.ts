@@ -5,6 +5,7 @@ import * as path from 'path';
 import collectionsFromArgs from './collectionsFromArgs';
 import displayHelp from './displayHelp';
 import displayVersion from './displayVersion';
+import getInitialOptions from './getInitialOptions';
 import getModelFiles, { ModelMatcher } from './getModelFiles';
 import { idMapSetMappingTable, idMapSetMongoose } from './idMap';
 import loadConfig from './loadConfig';
@@ -15,6 +16,20 @@ import unseed from './unseed';
 
 async function startup(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
 
+  const initialOptions = getInitialOptions();
+
+  // Show help and exit
+  if (initialOptions.help) {
+    displayHelp(process.stdout);
+    return;
+  }
+
+  // Show version and exit
+  if (initialOptions.version) {
+    displayVersion(process.stdout);
+    return;
+  }
+
   // Find project root directory
   const projRoot = findDominantFile(cwd, 'package.json', true);
   if (!projRoot) {
@@ -22,18 +37,6 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
   }
 
   const [command, args, options] = loadConfig(projRoot, argv);
-
-  // Show help and exit
-  if (options.help) {
-    displayHelp(process.stdout);
-    return;
-  }
-
-  // Show version and exit
-  if (options.version) {
-    displayVersion(process.stdout);
-    return;
-  }
 
   // Check command availability
   if (!['seed', 'reseed', 'unseed'].includes(command)) {
