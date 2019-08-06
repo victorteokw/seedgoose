@@ -21,7 +21,12 @@ function collectionsFromArgs(dataDir: string, args: string[], mongoose: Mongoose
     const allCollections = modelList.map((model) => model.collection.name);
     const files = fs.readdirSync(dataDir);
     const available = files.map((f) => path.parse(f).name);
-    return allCollections.filter((c) => available.includes(c));
+    const retval = allCollections.filter((c) => available.includes(c));
+    if (retval.length === 0) {
+      const { log } = console;
+      log('\n  No collections to handle.\n');
+    }
+    return retval;
   }
 }
 
