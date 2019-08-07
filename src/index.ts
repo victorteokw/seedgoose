@@ -54,7 +54,9 @@ async function startup(cwd: string = process.cwd(), argv: string[] = process.arg
     options.models as ModelMatcher,
     options.modelBaseDirectory as string
   );
-  modelFileList.forEach(require);
+  modelFileList.forEach((filename) => {
+    loadFile(filename);
+  });
 
   // Connect mongoose
   const nodeModules = findDominantFile(cwd, 'node_modules', false);
