@@ -22,10 +22,10 @@ const transformRecord = async (record: any, schema: any, mongoose: Mongoose, roo
   // schema object type
   if (schema instanceof mongoose.Schema) {
     const retval = {};
-    await eachAsync((schema as any).tree, (item, key) => {
+    await eachAsync((schema as any).tree, async (item, key) => {
       if (record && record[key]) {
         if (!shouldIgnoreItem(item, key, mongoose)) {
-          retval[key] = transformRecord(record[key], item, mongoose, root);
+          retval[key] = await transformRecord(record[key], item, mongoose, root);
         }
       }
     });
@@ -73,10 +73,10 @@ const transformRecord = async (record: any, schema: any, mongoose: Mongoose, roo
     } else {
       // nested declared with object syntax
       const retval = {};
-      await eachAsync(schema, (item, key) => {
+      await eachAsync(schema, async (item, key) => {
         if (record && record[key]) {
           if (!shouldIgnoreItem(item, key, mongoose)) {
-            retval[key] = transformRecord(record[key], item, mongoose, root);
+            retval[key] = await transformRecord(record[key], item, mongoose, root);
           }
         }
       });
@@ -108,6 +108,7 @@ const genericSeed: GeneralSeedCommand = async function (
       return;
     }
     const transformedRecord = await transformRecord(record, model.schema, model.base, record);
+
     if (command === SeedingCommandType.RESEED) {
       const result = await dbCollection.findOneAndUpdate(
         { _id: nativeId },
