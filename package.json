@@ -55,6 +55,7 @@
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^6.1.4",
+    "mongodb": "^3.3.0",
     "ts-node": "^8.3.0",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
