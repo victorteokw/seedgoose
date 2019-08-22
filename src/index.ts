@@ -101,4 +101,4 @@ if (require.main === module) {
   startup(process.cwd(), process.argv);
 }
 
-module.exports = startup;
+export default startup;

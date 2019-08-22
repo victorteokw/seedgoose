@@ -1,16 +1,14 @@
-const { assert } = require('chai');
-const path = require('path');
-const seedgoose = require('../../index');
-const { MongoClient } = require('mongodb');
+import { assert } from 'chai';
+import { Db, MongoClient } from 'mongodb';
+import * as path from 'path';
+import seedgoose from '../../src';
 
-let db, client;
+let db: Db;
+let client: MongoClient;
 
-const connectDb = (dbName) => async () => {
+const connectDb = (dbName: string) => async () => {
   const mongoClient = await MongoClient.connect(
-    `mongodb://localhost:27017/${dbName}`,
-    {
-      useNewUrlParser: true
-    }
+    `mongodb://localhost:27017/${dbName}`, { useNewUrlParser: true }
   );
   client = mongoClient;
   db = client.db(dbName);
@@ -28,9 +26,9 @@ const disconnectDb = async () => {
 
 before(connectDb('seedgoose-array-example'));
 after(disconnectDb);
-it('support data in format', async () => {
+it('support array data format', async () => {
   await seedgoose(
-    path.resolve(__dirname, '../../examples/array'),
+    path.resolve(__dirname),
     ['seed', '-S']
   );
   const collection = db.collection('products');

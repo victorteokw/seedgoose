@@ -46,7 +46,6 @@ Without Seedgoose, say you have following data
     "content": "I still have a dream, a dream deeply rooted in the American dream."
   },
 ]
-
 ```
 
 It's obscure and not descriptive. A lot of patient and time are consumed just

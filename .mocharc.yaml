@@ -1,0 +1,2 @@
+"spec": "tests/**/*Test.ts"
+"require": "ts-node/register"

@@ -1,6 +1,6 @@
 {
   "name": "seedgoose",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Mongoose data seeding with smart id references tracking.",
   "bin": {
     "seedgoose": "lib/index.js"
@@ -13,8 +13,8 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "test": "mocha \"./test/**/*Test.js\"",
-    "test-cov": "mocha \"./test/**/*Test.js\"",
+    "test": "mocha",
+    "test-cov": "mocha",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
@@ -48,11 +48,14 @@
     "walk-sync": "^2.0.2"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/mocha": "^5.2.7",
     "@types/mongoose": "^5.5.3",
     "@types/node": "^12.0.2",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^6.1.4",
+    "ts-node": "^8.3.0",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.5"
