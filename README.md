@@ -10,28 +10,29 @@ Mongoose data seeding with smart id references tracking.
 
 ## Introduction
 
-Seeding data with id references is always hard. That's why I created this
-package. Seedgoose recursively goes through your model schemas to setup smart id
-references tracking for you.
+Seeding data with id references is always hard. Seedgoose recursively goes
+through your model schemas to setup smart id references tracking for you.
 
 ## Design Concept
 
-The node.js ecosystem lacks a high quality data seeding tool and fixture
-loading tool with id references support. I was shocked by this. This kind of
-tools exist for years in Ruby on Rails world. It's the base functionality for
-data seeding and unit test fixturing. In our node.js world, every team and
-developer has their own time consuming and low quality solutions to seed data.
-A tool is urgently needed to save our precious time and improve data seeding
-experience.
+The node.js ecosystem lacks a high quality data seeding tool and fixture loading
+tool with id references support. I was shocked by this. This kind of tools exist
+for years in Ruby on Rails world. It's the base functionality for data seeding
+and unit test fixturing. In our node.js world, every team and developer has
+their own time consuming and low quality solutions to seed data. A tool is
+urgently needed to save our precious time and improve data seeding experience.
 
 Without Seedgoose, say you have following data
 
 ``` json
 // authors.json
-{
-  "name": "Chris Berg",
-  "posts": ["84bd43d8a0ffcde34567abcd", "84bd43d8a0ffcde34567abce", "84bd43d8a0ffcde34567abcf"]
-}
+[
+  {
+    "_id": "54bd43d8a0ffcde34567ab00",
+    "name": "Chris Berg",
+    "posts": ["84bd43d8a0ffcde34567abcd", "84bd43d8a0ffcde34567abce", "84bd43d8a0ffcde34567abcf"]
+  }
+]
 // posts.json
 [
   {
@@ -49,9 +50,9 @@ Without Seedgoose, say you have following data
 ```
 
 It's obscure and not descriptive. A lot of patient and time are consumed just
-to make sure data hooks. Things get even worse when project goes larger and
-larger and the obscure seed data become larger and larger, hard to read, hard
-to modify.
+to make sure data hooks by these underbar ids. Things get even worse when
+project goes larger and larger and the obscure seed data become larger and
+larger, hard to read, hard to modify.
 
 This is where Seedgoose comes in. With Seedgoose, we can rewrite these data
 like this:
@@ -59,32 +60,31 @@ like this:
 ``` json
 // authors.json
 {
-  "name": "Chris Berg",
-  "posts": ["i have a dream", "heal the world", "a didsummer night's dream"]
+  "chris": {
+    "name": "Chris Berg",
+    "posts": ["i have a dream", "heal the world"]
+  }
 }
 // posts.json
-[
-  {
-    "_id": "heal the world",
+{
+  "heal the world": {
     "title": "Heal the world",
     "content": "Heal the world, make it a better place."
   },
-  {
-    "_id": "i have a dream",
+  "i have a dream": {
     "title": "I have a dream",
     "content": "I still have a dream, a dream deeply rooted in the American dream."
-  },
-]
-
+  }
+}
 ```
 
 Seedgoose recursively goes through your model schemas, and trying to find out
 what you are referencing and set the relationships up for you. In this way, you
-can define the identity of a model in any way you like. It's not restricted to
-strings, actually number or even boolean value is also fine if it make sense.
+can define the id of a model in any way you like. It's not restricted to
+strings, actually number or even boolean value is also fine if it makes sense.
 
-According to this data loading nature, seedgoose can load program files as long
-as it returns a object or array.
+According to this data loading nature, Seedgoose can load program files as long
+as it returns an object or an array.
 
 ``` javascript
 const map = require('lodash/map');
@@ -92,7 +92,7 @@ const times = require('lodash/times');
 const flatten = require('lodash/flatten');
 const faker = require('faker');
 
-module.exports = flatten(map(["jack", "queen", "king"], (a) => times(3, (i) => ({
+module.exports = flatten(map(["jack", "jobs", "john"], (a) => times(3, (i) => ({
   "_id": `${a} post ${i + 1}`,
   "author": a,
   "title": faker.random.word(),
@@ -170,8 +170,8 @@ model file named `User`, then you should name data file `users` dot whatever
 the type is. We follow the convention over configuration best practice to save
 configuration time and suppress arguments.
 
-Create a Seedgoose configuration file like this. You can write the
-configuration file in any type, too.
+Create a Seedgoose configuration file like this. You can write the configuration
+file in any type, too.
 
 ``` javascript
 // .seedgooserc.js
