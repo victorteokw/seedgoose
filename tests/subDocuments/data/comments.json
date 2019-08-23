@@ -1,0 +1,9 @@
+{
+	"one": {
+		"name": "First Comment"
+	},
+	"two": {
+  "name": "Second Comment",
+  "for": { "article": "First Post", "onModel": "Post" }
+	}
+}
