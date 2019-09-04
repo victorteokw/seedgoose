@@ -1,0 +1,16 @@
+{
+	"productPostComment": {
+  "body": "Great read",
+  "postLink": {
+   "linkedTo": "productpost",
+   "onModel": "ProductPost"
+  }
+	},
+	"blogPostComment": {
+		"body": "Very informative",
+		"postLink": {
+   "linkedTo": "blogpost",
+   "onModel": "BlogPost"
+  }
+	}
+}
