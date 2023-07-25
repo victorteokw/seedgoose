@@ -1,8 +1,12 @@
-import {Model, Mongoose} from "mongoose";
+import { Model, Mongoose } from "mongoose";
 import eachAsync from "series-async-each";
 import get from "./get";
-import {getUniqId} from "./idMap";
-import {GeneralSeedCommand, Record, SeedingCommandType} from "./SeedingCommand";
+import { getUniqId } from "./idMap";
+import {
+  GeneralSeedCommand,
+  Record,
+  SeedingCommandType,
+} from "./SeedingCommand";
 import stringIsObjectId from "./stringIsObjectId";
 
 const shouldIgnoreItem = (
@@ -49,7 +53,7 @@ const transformRecord = async (
   if (Array.isArray(schema)) {
     if (record) {
       const retval: any[] = [];
-      await eachAsync(record, async recordItem => {
+      await eachAsync(record, async (recordItem) => {
         retval.push(
           await transformRecord(recordItem, schema[0], mongoose, root)
         );
@@ -124,7 +128,7 @@ const genericSeed: GeneralSeedCommand = async function (
 ) {
   reporter.startSeedCollection(collectionName);
   const model: Model<any> = Object.values(mongoose.models).find(
-    m => m.collection.name === collectionName
+    (m) => m.collection.name === collectionName
   ) as Model<any>;
   await eachAsync(records, async (record, index) => {
     if (Array.isArray(records) && !record._id && !record.id) {
@@ -135,7 +139,7 @@ const genericSeed: GeneralSeedCommand = async function (
     } else {
       record._id = index;
     }
-    const nativeId = mongoose.Types.ObjectId(
+    const nativeId = new mongoose.Types.ObjectId(
       stringIsObjectId(record._id)
         ? record._id
         : await getUniqId(collectionName, record._id)
@@ -143,7 +147,7 @@ const genericSeed: GeneralSeedCommand = async function (
     const db = mongoose.connection.db;
     const dbCollection = db.collection(collectionName);
     if (command === SeedingCommandType.UNSEED) {
-      const result = await dbCollection.deleteOne({_id: nativeId});
+      const result = await dbCollection.deleteOne({ _id: nativeId });
       reporter.didHandleRecord(
         result.result.n === 0 ? "unexist" : "delete",
         collectionName,
@@ -160,9 +164,9 @@ const genericSeed: GeneralSeedCommand = async function (
 
     if (command === SeedingCommandType.RESEED) {
       const result = await dbCollection.findOneAndUpdate(
-        {_id: nativeId},
-        {$set: transformedRecord},
-        {upsert: true, returnOriginal: false}
+        { _id: nativeId },
+        { $set: transformedRecord },
+        { upsert: true, returnOriginal: false }
       );
       const update = result.lastErrorObject.updatedExisting;
       reporter.didHandleRecord(
@@ -173,12 +177,12 @@ const genericSeed: GeneralSeedCommand = async function (
       return;
     }
     if (command === SeedingCommandType.SEED) {
-      const exist = await dbCollection.findOne({_id: nativeId});
+      const exist = await dbCollection.findOne({ _id: nativeId });
       if (exist) {
         reporter.didHandleRecord("untouch", collectionName, record._id);
       } else {
         const insertResult = await dbCollection.insertOne(
-          Object.assign({_id: nativeId}, transformedRecord)
+          Object.assign({ _id: nativeId }, transformedRecord)
         );
         // console.log(insertResult)
         if (insertResult.result.ok) {
