@@ -185,7 +185,7 @@ const genericSeed: GeneralSeedCommand = async function (
           Object.assign({ _id: nativeId }, transformedRecord)
         );
         // console.log(insertResult)
-        if (insertResult.result.ok) {
+        if (insertResult.acknowledged) {
           reporter.didHandleRecord("create", collectionName, record._id);
         } else {
           throw new Error(
